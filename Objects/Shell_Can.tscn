@@ -1,19 +1,18 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Shell.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Shell1.png" type="Texture" id=2]
+[ext_resource path="res://CrabLayers/CrabShell_0001_Shell3.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
 bounce = 0.2
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=2]
 
-radius = 133.026
+radius = 92.5249
+height = 83.8409
 
-[node name="Shell" type="RigidBody2D" groups=[
-"shells",
-]]
+[node name="Shell" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 3
 mass = 2.0
@@ -21,13 +20,14 @@ physics_material_override = SubResource( 1 )
 gravity_scale = 10.0
 continuous_cd = 2
 script = ExtResource( 1 )
-shell_type = "plain"
+shell_type = "can"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.628783
 shape = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]

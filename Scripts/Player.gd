@@ -6,6 +6,10 @@ onready var trajectory: = $Trajectory
 onready var camera: = $Camera2D
 onready var traj_raycast : = $TrajRayCast2D
 onready var floor_raycast : = $FloorRayCast2D
+onready var shell_character : = $CrabSprite/Base/Hip/Shell1
+onready var pickup_area : = $PickupArea
+
+var shell_type = "plain"
 
 var starting_pos:Vector2 = Vector2(self.position.x, self.position.y)
 var dead_zone:float = 0.2
@@ -21,9 +25,12 @@ var velocity : = Vector2.ZERO
 var prev_velocity : = Vector2.ZERO
 var jump_velocity : = Vector2.ZERO
 var gravity:float = 600
-var damping:float = 100 
+var damping:float = 100
+
+var shell_to_pickup
 
 func _ready():
+	set_shell(shell_type)
 	Input.connect("joy_connection_changed", self, "joy_changed")
 
 #
@@ -31,12 +38,21 @@ func _ready():
 #
 func _process(delta):
 	if (Input.is_action_just_pressed("action")):
-		print("'A' Pressed")
+		a_button_pressed(delta)
 		
-	if (Input.is_action_pressed("right_trigger")):
+	if (Input.is_action_pressed("right_trigger") and shell_type != "none"):
 		right_trigger_pressed(delta)
 	else:
 		right_trigger_unpressed(delta)
+
+#
+### 'A' Button
+#
+func a_button_pressed(delta:float):
+	if (shell_to_pickup != null):
+		set_shell(shell_to_pickup.get_shell_type())
+		shell_to_pickup.free()
+		shell_to_pickup = null
 
 #
 ### Right Trigger
@@ -59,12 +75,14 @@ func right_trigger_unpressed(delta:float):
 		traj_raycast.cast_to = throw_direction * 500
 		traj_raycast.force_raycast_update()
 		if (traj_raycast.is_colliding() and traj_raycast.get_collider() is StaticBody2D):
-			$ShellLauncher.place_shell("type", traj_raycast.get_collision_point())
+			$ShellLauncher.place_shell(shell_type, traj_raycast.get_collision_point())
+			set_shell("none")
 			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 350
 		else:
 			is_throwing = true
+			$ShellLauncher.throw_shell(shell_type, throw_direction, traj_raycast.get_global_transform().get_origin())
+			set_shell("none")
 			jump_velocity = Vector2.ZERO
-			$ShellLauncher.throw_shell("type", throw_direction, traj_raycast.get_global_transform().get_origin())
 		throw_direction = Vector2.ZERO
 		right_trigger_unpressed(delta)
 
@@ -131,22 +149,52 @@ func _physics_process(delta:float):
 #
 ### Helpers
 #
+func set_shell(type:String):
+	shell_type = type
+	if (type == "none"):
+		shell_character.frame = 0
+		if (is_idle_ani):
+			$CrabSprite/AnimationPlayer.play("IdleNoShell")
+		if (is_walking_ani):
+			$CrabSprite/AnimationPlayer.play("WalkNoShell")
+		return
+		
+	if (type == "plain"):
+		shell_character.frame = 3
+	if (type == "can"):
+		shell_character.frame = 1
+	if (type == "fancy"):
+		shell_character.frame = 2
+		
+	if (is_idle_ani):
+		$CrabSprite/AnimationPlayer.play("Idle")
+	if (is_walking_ani):
+		$CrabSprite/AnimationPlayer.play("Walk")
+
 func move_animation(left:bool):
 	if (left):
 		$CrabSprite.scale.x = 1
+		$CrabSprite.position.x = 0
 	else:
 		$CrabSprite.scale.x = -1
+		$CrabSprite.position.x = -130
 	
 	is_idle_ani = false
 	if (is_walking_ani == false):
 		is_walking_ani = true
-		$CrabSprite/AnimationPlayer.play("Walk")
+		if (shell_type != "none"):
+			$CrabSprite/AnimationPlayer.play("Walk")
+		else:
+			$CrabSprite/AnimationPlayer.play("WalkNoShell")
 
 func idle_animation():
 	is_walking_ani = false
 	if (is_idle_ani == false):
 		is_idle_ani = true
-		$CrabSprite/AnimationPlayer.play("Idle")
+		if (shell_type != "none"):
+			$CrabSprite/AnimationPlayer.play("Idle")
+		else:
+			$CrabSprite/AnimationPlayer.play("IdleNoShell")
 
 func get_speed(delta:float, axis:float) -> float:
 	return (100 * delta * (speed_multipler * abs(axis)))
@@ -170,3 +218,15 @@ func joy_changed(id, is_connected):
 			print(Input.get_joy_name(0) + " device connected")
 		else:
 			print("Joystick " + str(id) + " disconnected")
+
+func _on_PickupArea_body_entered(body):
+	if (body.is_in_group("shells")):
+		if (shell_to_pickup != null):
+			print("Already shell ready to be picked up")
+		else:
+			shell_to_pickup = body
+
+func _on_PickupArea_body_exited(body):
+	if (body.is_in_group("shells")):
+		if (shell_to_pickup != null):
+			shell_to_pickup = null

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Shell.gd" type="Script" id=1]
+[ext_resource path="res://CrabLayers/CrabShell_0002_Shell2.png" type="Texture" id=2]
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+bounce = 0.2
+
+[node name="Shell" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 3
+mass = 2.0
+physics_material_override = SubResource( 1 )
+gravity_scale = 10.0
+continuous_cd = 2
+script = ExtResource( 1 )
+shell_type = "fancy"
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+autostart = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+build_mode = 1
+polygon = PoolVector2Array( 22.0291, -144.901, -11.7852, -124.319, -63.2416, -90.5045, -144.102, -31.6971, -157.333, 7.99792, -151.453, 65.3351, -136.751, 109.441, -101.466, 147.666, -45.5994, 175.599, -0.0236816, 169.718, 52.903, 125.613, 86.7172, 81.5072, 108.77, 41.8122, 105.83, -15.525, 107.3, -69.9219, 102.889, -100.796, 94.0682, -122.849, 55.8434, -141.961 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

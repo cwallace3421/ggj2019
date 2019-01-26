@@ -16,6 +16,10 @@ position = Vector2( 814.259, 650.319 )
 [node name="Platform3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1573.88, 650.654 )
 
+[node name="Platform5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2059.32, 370.583 )
+rotation = 1.57079
+
 [node name="Platform4" parent="." instance=ExtResource( 1 )]
 position = Vector2( -723.574, 593.967 )
 rotation = 0.144149
