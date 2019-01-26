@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Objects/SandTop.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/SandGround.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/BigRock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/DriftwoodBranch.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/ShellProp.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/SeaweedSmall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Objects/Star.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Objects/PlankLeft.tscn" type="PackedScene" id=9]
+
+[node name="Beach" type="Node2D"]
+
+[node name="SandTop" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1.04956, -8.7348 )
+
+[node name="SandTop2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -998.546, -8.7348 )
+
+[node name="SandTop3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 997.85, -8.7348 )
+
+[node name="SandGround" parent="." instance=ExtResource( 2 )]
+position = Vector2( -999.722, 187.194 )
+
+[node name="SandGround2" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2.63049, 188.864 )
+
+[node name="BigRock" parent="." instance=ExtResource( 3 )]
+position = Vector2( -23.5387, -67.8777 )
+
+[node name="DriftwoodBranch" parent="." instance=ExtResource( 4 )]
+position = Vector2( -8.7204, -166.285 )
+
+[node name="ShellProp2" parent="." instance=ExtResource( 5 )]
+position = Vector2( -855.993, -79.0855 )
+rotation = -1.92123
+
+[node name="ShellProp" parent="." instance=ExtResource( 5 )]
+position = Vector2( -249.27, 71.9659 )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( -315.877, 8.68488 )
+
+[node name="SeaweedSmall" parent="." instance=ExtResource( 7 )]
+position = Vector2( -79.0023, 13.9982 )
+
+[node name="Star" parent="." instance=ExtResource( 8 )]
+position = Vector2( 665.287, 100.11 )
+
+[node name="PlankLeft" parent="." instance=ExtResource( 9 )]
+position = Vector2( -104.511, -452.481 )
+

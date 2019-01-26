@@ -3,6 +3,8 @@
 [ext_resource path="res://Props/Prop_0012_Driftwood.png" type="Texture" id=1]
 
 [node name="DriftwoodBranch" type="RigidBody2D"]
+mass = 5.0
+gravity_scale = 9.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -1.19751, 0.598724 )

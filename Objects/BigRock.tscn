@@ -5,9 +5,10 @@
 [node name="BigRock" type="StaticBody2D"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -75.9644, 40.2141, -15.4922, 41.4115, 9.05588, 55.7812, 62.942, 53.985, 78.5091, 22.8508, 68.9293, -14.8695, 22.8268, -45.405, -35.2505, -40.6151, -53.8112, -8.2834, -71.7733, 6.68495 )
+polygon = PoolVector2Array( -120.271, 63.5646, -23.8746, 63.5646, 6.06207, 88.7114, 82.1013, 83.9216, 121.618, 50.9912, 101.86, -6.4873, 42.5849, -59.1759, 5.46335, -80.1316, -47.824, -61.5709, -79.5569, -13.0734, -107.099, 25.8443 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( -3.59241, 3.59239 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 1 )
 
