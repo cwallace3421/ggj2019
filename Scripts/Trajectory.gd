@@ -4,6 +4,7 @@ var is_active:bool = false
 var dots:Array = []
 var spacing = 0
 var default_pos = Vector2(position.x, position.y)
+var direction:Vector2 = Vector2.ZERO
 
 func _ready():
 	dots = get_children()
@@ -12,26 +13,17 @@ func _ready():
 		dot.scale.y = 0.2
 	set_visibilty(false)
 	spacing = (dots[0].texture.get_size().x * dots[0].scale.x) * 2
-	print("Spacing " + str(spacing))
 
 func set_vector(v:Vector2):
-	var direction : = v.normalized()
+	direction = v.normalized()
 	var count : = 0
-	print(str(direction))
 	for dot in dots:
 		dot.position.x = direction.x * ((spacing * count) + 80)
 		dot.position.y = direction.y * ((spacing * count) + 80)
-#		if (direction.x != 0):
-##			print("Blah X")
-#			dot.position.x = direction.x * (spacing * count)
-#		else:
-#			dot.position = default_pos
-#		if (direction.y != 0):
-##			print("Blah Y")
-#			dot.position.y = direction.y * (spacing * count)
-#		else:
-#			dot.position = default_pos
 		count += 1
+
+func get_vector() -> Vector2:
+	return direction
 
 func set_active(active:bool):
 	is_active = active

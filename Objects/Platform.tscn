@@ -4,12 +4,12 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-extents = Vector2( 128.009, 127.572 )
+extents = Vector2( 128.009, 130.954 )
 
 [node name="Platform" type="Sprite"]
 modulate = Color( 0.337255, 0.282353, 0.282353, 1 )
-position = Vector2( 211.594, 0 )
-scale = Vector2( 3, 0.2 )
+position = Vector2( 211.594, 77.1638 )
+scale = Vector2( 3, 0.802842 )
 texture = ExtResource( 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
