@@ -2110,7 +2110,7 @@ tracks/34/keys = {
 position = Vector2( 1.08072, -28.6391 )
 
 [node name="Base" type="Node2D" parent="."]
-scale = Vector2( 0.1, 0.1 )
+scale = Vector2( 0.2, 0.2 )
 
 [node name="Hip" type="Sprite" parent="Base"]
 position = Vector2( -14.7043, -109.676 )

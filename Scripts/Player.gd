@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var Dot = preload("res://Objects/Dot.tscn")
+
 onready var trajectory: = $Trajectory
 onready var camera: = $Camera2D
 
@@ -12,6 +14,7 @@ var throw_direction:Vector2 = Vector2.ZERO
 var is_throwing : = false
 
 func _ready():
+	$CrabSprite/AnimationPlayer.play("Idle")
 	Input.connect("joy_connection_changed", self, "joy_changed")
 
 #
@@ -37,9 +40,6 @@ func right_trigger_pressed(delta:float):
 	trajectory.set_vector(Vector2(x_axis_alt, y_axis_alt).normalized())
 	throw_direction = trajectory.get_vector()
 	
-	$RayCast2D.enabled = true
-	$RayCast2D.cast_to(throw_direction * 150)
-	
 
 func right_trigger_unpressed(delta:float):
 	if (throw_direction == Vector2.ZERO):
@@ -53,13 +53,18 @@ func right_trigger_unpressed(delta:float):
 		right_trigger_unpressed(delta)
 	else:
 		var raycaster:RayCast2D = $RayCast2D
-		raycaster.cast_to(throw_direction * 150)
+		raycaster.cast_to = throw_direction * 500
 		raycaster.force_raycast_update()
-		if ($RayCast2D.is_colliding()):
+		if ($RayCast2D.is_colliding() and $RayCast2D.get_collider() is StaticBody2D):
+			$ShellLauncher.place_shell("type", raycaster.get_collision_point())
+#			var d = Dot.instance()
+#			d.position = raycaster.get_collision_point()
+#			get_tree().get_nodes_in_group("level_root")[0].add_child(d)
+		else:
 			is_throwing = true
-			$ShellLauncher.throw_shell("type", throw_direction, position)
-			throw_direction = Vector2.ZERO
-			right_trigger_unpressed(delta)
+			$ShellLauncher.throw_shell("type", throw_direction, raycaster.get_global_transform().get_origin())
+		throw_direction = Vector2.ZERO
+		right_trigger_unpressed(delta)
 
 #
 ### Physics
@@ -78,10 +83,21 @@ func _physics_process(delta:float):
 	
 	vel = move_and_slide(vel, Vector2.UP) # can raycast to floor to get normal
 	move_and_collide(vel)
+	
+	if (x_axis < 0):
+		change_direction(true)
+	elif (x_axis > 0):
+		change_direction(false)
 
 #
 ### Helpers
 #
+func change_direction(left:bool):
+	if (left):
+		$CrabSprite.scale.x = 1
+	else:
+		$CrabSprite.scale.x = -1
+
 func get_speed(delta:float, axis:float) -> float:
 	return (100 * delta * (speed_multipler * abs(axis)))
 
