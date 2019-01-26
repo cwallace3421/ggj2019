@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Props/Prop_0004_BrokenPlank1.png" type="Texture" id=1]
+
+[node name="PlankRight" type="RigidBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -85.6236, -27.7247, -83.9512, 20.3589, 90.8224, 19.5227, 92.0767, -5.98254, 74.5158, -28.5609 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 0.482135
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+

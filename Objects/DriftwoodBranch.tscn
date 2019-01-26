@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Props/Prop_0012_Driftwood.png" type="Texture" id=1]
+
+[node name="DriftwoodBranch" type="RigidBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -1.19751, 0.598724 )
+polygon = PoolVector2Array( -190.323, -19.0606, -196.909, 24.647, 209.632, 27.6407, 206.04, -18.4619 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 0.632296
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+
