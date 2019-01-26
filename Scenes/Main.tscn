@@ -11,10 +11,10 @@
 position = Vector2( 48.392, 650 )
 
 [node name="Platform2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 839.903, 650 )
+position = Vector2( 814.259, 650.319 )
 
 [node name="Platform3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1619.58, 650 )
+position = Vector2( 1573.88, 650.654 )
 
 [node name="Platform4" parent="." instance=ExtResource( 1 )]
 position = Vector2( -723.574, 593.967 )

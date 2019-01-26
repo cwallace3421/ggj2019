@@ -30,11 +30,16 @@ current = true
 zoom = Vector2( 1.2, 1.2 )
 smoothing_enabled = true
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="TrajRayCast2D" type="RayCast2D" parent="."]
 position = Vector2( -64.266, -135.18 )
 enabled = true
 
 [node name="ShellLauncher" parent="." instance=ExtResource( 4 )]
 position = Vector2( -64.266, -132.105 )
-force = 900
+force = 1400
+
+[node name="FloorRayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -64.266, -135.18 )
+enabled = true
+cast_to = Vector2( 0, 200 )
 

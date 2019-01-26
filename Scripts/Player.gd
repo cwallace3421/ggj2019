@@ -4,17 +4,26 @@ onready var Dot = preload("res://Objects/Dot.tscn")
 
 onready var trajectory: = $Trajectory
 onready var camera: = $Camera2D
+onready var traj_raycast : = $TrajRayCast2D
+onready var floor_raycast : = $FloorRayCast2D
 
 var starting_pos:Vector2 = Vector2(self.position.x, self.position.y)
 var dead_zone:float = 0.2
 var speed_multipler:float = 4
-var gravity:float = 290
 
 var throw_direction:Vector2 = Vector2.ZERO
 var is_throwing : = false
 
+var is_walking_ani : = false
+var is_idle_ani : = false
+
+var velocity : = Vector2.ZERO
+var prev_velocity : = Vector2.ZERO
+var jump_velocity : = Vector2.ZERO
+var gravity:float = 600
+var damping:float = 100 
+
 func _ready():
-	$CrabSprite/AnimationPlayer.play("Idle")
 	Input.connect("joy_connection_changed", self, "joy_changed")
 
 #
@@ -46,23 +55,16 @@ func right_trigger_unpressed(delta:float):
 		is_throwing = false
 		lerp_zoom_to(1.2, false)
 		trajectory.set_active(false)
-		$RayCast2D.enabled = false
-	elif ($RayCast2D.is_colliding()):
-		print(str($RayCast2D.get_collider()))
-		throw_direction = Vector2.ZERO
-		right_trigger_unpressed(delta)
 	else:
-		var raycaster:RayCast2D = $RayCast2D
-		raycaster.cast_to = throw_direction * 500
-		raycaster.force_raycast_update()
-		if ($RayCast2D.is_colliding() and $RayCast2D.get_collider() is StaticBody2D):
-			$ShellLauncher.place_shell("type", raycaster.get_collision_point())
-#			var d = Dot.instance()
-#			d.position = raycaster.get_collision_point()
-#			get_tree().get_nodes_in_group("level_root")[0].add_child(d)
+		traj_raycast.cast_to = throw_direction * 500
+		traj_raycast.force_raycast_update()
+		if (traj_raycast.is_colliding() and traj_raycast.get_collider() is StaticBody2D):
+			$ShellLauncher.place_shell("type", traj_raycast.get_collision_point())
+			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 350
 		else:
 			is_throwing = true
-			$ShellLauncher.throw_shell("type", throw_direction, raycaster.get_global_transform().get_origin())
+			jump_velocity = Vector2.ZERO
+			$ShellLauncher.throw_shell("type", throw_direction, traj_raycast.get_global_transform().get_origin())
 		throw_direction = Vector2.ZERO
 		right_trigger_unpressed(delta)
 
@@ -70,33 +72,81 @@ func right_trigger_unpressed(delta:float):
 ### Physics
 #
 func _physics_process(delta:float):
-	var vel:Vector2 = Vector2(0, 0)
-	vel.y = get_gravity(delta)
+	velocity.x = 0
 	
 	var x_axis = Input.get_action_strength("right") - Input.get_action_strength("left")
 	
+	if (jump_velocity != Vector2.ZERO):
+		velocity.y += jump_velocity.y
+		jump_velocity.y += 1200 * delta
+		velocity.x += jump_velocity.x
+	
 	if (is_on_floor()):
 		if (x_axis < 0):
-			vel.x = -get_speed(delta, x_axis)
+			velocity.x -= 450
 		if (x_axis > 0):
-			vel.x = +get_speed(delta, x_axis)
+			velocity.x += 450
 	
-	vel = move_and_slide(vel, Vector2.UP) # can raycast to floor to get normal
-	move_and_collide(vel)
+	if (!is_on_floor() or jump_velocity != Vector2.ZERO):
+		velocity.y += 1200 * delta
+	else:
+		velocity.y = 0
+
+	move_and_slide(velocity, Vector2.UP)
+	
+	if (is_on_floor()):
+		jump_velocity = Vector2.ZERO
 	
 	if (x_axis < 0):
-		change_direction(true)
+		move_animation(true)
 	elif (x_axis > 0):
-		change_direction(false)
+		move_animation(false)
+	else:
+		idle_animation()
+	
+#	if (is_on_floor()):
+#		if (x_axis < 0):
+#			vel.x = -get_speed(delta, x_axis)
+#		if (x_axis > 0):
+#			vel.x = +get_speed(delta, x_axis)
+#
+#	if (jump_velocity != Vector2.ZERO):
+#		vel = jump_velocity * delta
+#		jump_velocity.y = jump_velocity.y + (gravity / 4)
+#		jump_velocity.x = jump_velocity.x + (damping * (sign(jump_velocity.x) * -1))
+#
+#	vel = move_and_slide(vel, Vector2.UP) # can raycast to floor to get normal
+#	move_and_collide(vel)
+#
+#	if (is_on_floor()):
+#		jump_velocity = Vector2.ZERO
+#
+#	if (x_axis < 0):
+#		move_animation(true)
+#	elif (x_axis > 0):
+#		move_animation(false)
+#	else:
+#		idle_animation()
 
 #
 ### Helpers
 #
-func change_direction(left:bool):
+func move_animation(left:bool):
 	if (left):
 		$CrabSprite.scale.x = 1
 	else:
 		$CrabSprite.scale.x = -1
+	
+	is_idle_ani = false
+	if (is_walking_ani == false):
+		is_walking_ani = true
+		$CrabSprite/AnimationPlayer.play("Walk")
+
+func idle_animation():
+	is_walking_ani = false
+	if (is_idle_ani == false):
+		is_idle_ani = true
+		$CrabSprite/AnimationPlayer.play("Idle")
 
 func get_speed(delta:float, axis:float) -> float:
 	return (100 * delta * (speed_multipler * abs(axis)))
