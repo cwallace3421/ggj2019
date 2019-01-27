@@ -32,9 +32,11 @@ var damping:float = 100
 var shell_to_pickup
 
 var is_dead
+var is_win
 var ani_block
 
 func _ready():
+	is_win = false
 	is_dead = false
 	ani_block = false
 	set_shell(shell_type)
@@ -45,7 +47,7 @@ func _ready():
 ### Main Loop
 #
 func _process(delta):
-	if (is_dead): return
+	if (is_dead or is_win): return
 	
 	if (Input.is_action_just_pressed("action")):
 		a_button_pressed(delta)
@@ -100,7 +102,7 @@ func right_trigger_unpressed(delta:float):
 ### Physics
 #
 func _physics_process(delta:float):
-	if (is_dead): return
+	if (is_dead or is_win): return
 	velocity.x = linear_velocity.x
 	velocity.y = linear_velocity.y
 	
@@ -232,8 +234,13 @@ func _on_HitBox_body_entered(body):
 			is_dead = true
 			ani_block = true
 			$CrabSprite/AnimationPlayer.play("Death")
+			get_tree().get_nodes_in_group("lose")[0].visible = true
 
 func _animation_finished(name:String):
 	if (ani_block and name != "Death"):
 		ani_block = false
 		set_shell(shell_type)
+
+func win():
+	is_win = true
+	$CrabSprite/AnimationPlayer.stop()

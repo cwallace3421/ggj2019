@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Objects/SandGroundLarge.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/SandTop.tscn" type="PackedScene" id=2]
@@ -10,16 +10,24 @@
 [ext_resource path="res://Objects/ShellProp.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/SeaweedSmall.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Objects/BigBigRock.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Objects/Shell_Can.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Objects/Shell.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Objects/Spade.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Objects/SeaweedBig.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Objects/BigRock.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Objects/DriftwoodBranch.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Objects/DriftwoodProp.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Objects/EnemyBarrier.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Objects/Sea.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Objects/Shell_Can.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Shell.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Objects/Spade.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/SeaweedBig.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Objects/BigRock.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Objects/DriftwoodBranch.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Objects/DriftwoodProp.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Objects/EnemyBarrier.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Objects/Cloud6.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Objects/Cloud4.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Cloud1.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Objects/Cloud3.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Objects/Cloud5.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/youwin.png" type="Texture" id=27]
+[ext_resource path="res://Assets/gameover.png" type="Texture" id=28]
 
 [node name="Beach" type="Node2D" groups=[
 "level_root",
@@ -287,40 +295,57 @@ rotation = 0.523598
 [node name="Plank6" parent="Background" instance=ExtResource( 5 )]
 position = Vector2( 16099.1, 2286.12 )
 rotation = 0.341106
-scale = Vector2( 1, 1 )
 
-[node name="Player" parent="." instance=ExtResource( 11 )]
-position = Vector2( -1689.27, -113.575 )
+[node name="Sea" parent="Background" instance=ExtResource( 11 )]
+position = Vector2( 17514.7, 2641.73 )
+
+[node name="Sea2" parent="Background" instance=ExtResource( 11 )]
+position = Vector2( 17529.9, 3613.19 )
+
+[node name="Player" parent="." instance=ExtResource( 12 )]
+position = Vector2( 15648.7, 1758.4 )
 mass = 12.0
+
+[node name="Enemy" parent="." instance=ExtResource( 13 )]
+position = Vector2( 6035.57, 56.3005 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 14324.6, 1968.45 )
 
 [node name="Shells" type="Node2D" parent="." groups=[
 "shells_group",
 ]]
 editor/display_folded = true
 
-[node name="Shell" parent="Shells" instance=ExtResource( 12 )]
+[node name="Shell" parent="Shells" instance=ExtResource( 14 )]
 position = Vector2( 2637.88, -205.247 )
 
-[node name="Shell2" parent="Shells" instance=ExtResource( 13 )]
+[node name="Shell2" parent="Shells" instance=ExtResource( 15 )]
 position = Vector2( -305.643, -100.061 )
 
-[node name="Shell3" parent="Shells" instance=ExtResource( 12 )]
+[node name="Shell3" parent="Shells" instance=ExtResource( 14 )]
 position = Vector2( 11753.6, 1543.39 )
 rotation = 1.54253
+
+[node name="Shell4" parent="Shells" instance=ExtResource( 15 )]
+position = Vector2( 13255, 1959.8 )
+
+[node name="Shell5" parent="Shells" instance=ExtResource( 14 )]
+position = Vector2( 4285.93, -547.986 )
 
 [node name="Foreground" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Spade" parent="Foreground" instance=ExtResource( 14 )]
+[node name="Spade" parent="Foreground" instance=ExtResource( 16 )]
 position = Vector2( 3777.34, -225.662 )
 
-[node name="SeaweedBig" parent="Foreground" instance=ExtResource( 15 )]
+[node name="SeaweedBig" parent="Foreground" instance=ExtResource( 17 )]
 position = Vector2( -2423.62, -48.7227 )
 
-[node name="BigRock" parent="Foreground" instance=ExtResource( 16 )]
+[node name="BigRock" parent="Foreground" instance=ExtResource( 18 )]
 position = Vector2( -1141.76, -32.5081 )
 
-[node name="DriftwoodBranch" parent="Foreground" instance=ExtResource( 17 )]
+[node name="DriftwoodBranch" parent="Foreground" instance=ExtResource( 19 )]
 position = Vector2( 73.0228, -163.821 )
 rotation = -0.358479
 
@@ -337,10 +362,10 @@ position = Vector2( 665.287, 100.11 )
 position = Vector2( 3152.61, -0.591164 )
 rotation = -0.0794191
 
-[node name="SeaweedBig2" parent="Foreground" instance=ExtResource( 15 )]
+[node name="SeaweedBig2" parent="Foreground" instance=ExtResource( 17 )]
 position = Vector2( 7185.73, 196.436 )
 
-[node name="DriftwoodProp" parent="Foreground" instance=ExtResource( 18 )]
+[node name="DriftwoodProp" parent="Foreground" instance=ExtResource( 20 )]
 position = Vector2( 4845.49, 511.249 )
 rotation = -2.26183
 
@@ -354,44 +379,87 @@ position = Vector2( 11251.7, 1694.27 )
 position = Vector2( 12169.8, 2059.73 )
 rotation = 0.218668
 
-[node name="BigRock2" parent="Foreground" instance=ExtResource( 16 )]
+[node name="BigRock2" parent="Foreground" instance=ExtResource( 18 )]
 position = Vector2( 15660.8, 2214.84 )
 rotation = 0.130376
-scale = Vector2( 1, 1 )
 
-[node name="Spade2" parent="Foreground" instance=ExtResource( 14 )]
+[node name="Spade2" parent="Foreground" instance=ExtResource( 16 )]
 position = Vector2( 10206.1, 1059.39 )
 rotation = -3.14159
 scale = Vector2( 0.8, -0.8 )
 
-[node name="SeaweedBig3" parent="Foreground" instance=ExtResource( 15 )]
+[node name="SeaweedBig3" parent="Foreground" instance=ExtResource( 17 )]
 position = Vector2( 11085.9, 1376.76 )
 rotation = 0.473852
 
 [node name="SmallRock" parent="Foreground" instance=ExtResource( 6 )]
 position = Vector2( 15114.6, 2355.43 )
 
-[node name="EnemyBarrier" parent="." instance=ExtResource( 19 )]
+[node name="EnemyBarrier" parent="." instance=ExtResource( 21 )]
 position = Vector2( 5339.31, 225.485 )
 
-[node name="EnemyBarrier2" parent="." instance=ExtResource( 19 )]
+[node name="EnemyBarrier2" parent="." instance=ExtResource( 21 )]
 position = Vector2( 6816.42, 225.485 )
 
-[node name="Enemy" parent="." instance=ExtResource( 20 )]
-position = Vector2( 6035.57, 56.3005 )
-
-[node name="EnemyBarrier3" parent="." instance=ExtResource( 19 )]
+[node name="EnemyBarrier3" parent="." instance=ExtResource( 21 )]
 position = Vector2( 13475.7, 2173.05 )
 
-[node name="EnemyBarrier4" parent="." instance=ExtResource( 19 )]
+[node name="EnemyBarrier4" parent="." instance=ExtResource( 21 )]
 position = Vector2( 15167, 2142.33 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 20 )]
-position = Vector2( 14324.6, 1968.45 )
+[node name="Cloud7" parent="." instance=ExtResource( 22 )]
+position = Vector2( 8806.48, -623.481 )
 
-[node name="Shell" parent="." instance=ExtResource( 13 )]
-position = Vector2( 13255, 1959.8 )
+[node name="Cloud8" parent="." instance=ExtResource( 23 )]
+position = Vector2( 9539.52, 305.734 )
 
-[node name="Shell2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 4285.93, -547.986 )
+[node name="Cloud2" parent="." instance=ExtResource( 24 )]
+position = Vector2( 6689.93, -1439.12 )
+
+[node name="Cloud3" parent="." instance=ExtResource( 25 )]
+position = Vector2( 3747.42, -1583.67 )
+
+[node name="Cloud4" parent="." instance=ExtResource( 23 )]
+position = Vector2( -661.192, -1924.38 )
+
+[node name="Cloud1" parent="." instance=ExtResource( 24 )]
+position = Vector2( -2247.18, -1461.12 )
+
+[node name="Cloud5" parent="." instance=ExtResource( 26 )]
+position = Vector2( 12048.4, 543.2 )
+
+[node name="Cloud6" parent="." instance=ExtResource( 26 )]
+position = Vector2( 487.646, -1204.26 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MarginContainer"]
+margin_right = 1080.0
+margin_bottom = 720.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/CenterContainer"]
+margin_left = 540.0
+margin_top = 360.0
+margin_right = 540.0
+margin_bottom = 360.0
+
+[node name="Win" type="TextureRect" parent="UI/MarginContainer/CenterContainer/MarginContainer" groups=[
+"win",
+]]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 27 )
+
+[node name="Lose" type="TextureRect" parent="UI/MarginContainer/CenterContainer/MarginContainer" groups=[
+"lose",
+]]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 28 )
 
