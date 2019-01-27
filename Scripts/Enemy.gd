@@ -19,6 +19,10 @@ func _ready():
 	ani_block = false
 	is_dead = false
 	shell_type = "plain"
+	
+	if (position.x > 10000):
+		shell_type = "fancy"
+	
 	set_shell(shell_type)
 	$EnemyCrabSprite/AnimationPlayer.connect("animation_finished", self, "_animation_finished")
 
@@ -117,11 +121,13 @@ func idle_animation():
 
 
 func _on_HitBox_body_entered(body):
+	print("hit")
 	if (body.has_method("get_shell_type")):
-		if (abs(body.linear_velocity.x) > 500 or abs(body.linear_velocity.y) > 500):
+		print("a")
+		if (abs(body.linear_velocity.x) > 400 or abs(body.linear_velocity.y) > 400):
+			print("b")
 			if (shell_type != "none" and !is_dead):
-				var degrees = (randi() * 90) - 45
-				$ShellLauncher.throw_shell(shell_type, Vector2.UP.rotated(deg2rad(degrees)), $ShellLauncher.get_global_transform().get_origin())
+				$ShellLauncher.throw_shell(shell_type, Vector2.UP, $ShellLauncher.get_global_transform().get_origin(), 1000)
 				set_shell("none")
 				ani_block = true
 				$EnemyCrabSprite/AnimationPlayer.play("Hit_Ani")

@@ -9,7 +9,7 @@ gravity_scale = 9.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -1.19751, 0.598724 )
-polygon = PoolVector2Array( -190.323, -19.0606, -196.909, 24.647, 209.632, 27.6407, 206.04, -18.4619 )
+polygon = PoolVector2Array( -190.323, -19.0606, -194.098, 21.0683, -48.8644, 21.1829, 43.5621, 39.6682, 91.0957, 42.3089, 128.066, 37.0274, 178.241, 7.09885, 209.05, 0.0568241, 202.924, -15.3349, 155.354, -15.7877, 101.659, 4.4581, 56.7659, -7.86545, 8.35196, -20.189 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 0.632296
