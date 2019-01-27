@@ -160,11 +160,11 @@ func set_shell(type:String):
 
 func move_animation(left:bool):
 	if (left):
-		$CrabSprite.scale.x = 1
-		$CrabSprite.position.x = 0
-	else:
 		$CrabSprite.scale.x = -1
-		$CrabSprite.position.x = -130
+		$CrabSprite/Base.position.x = 0
+	else:
+		$CrabSprite.scale.x = 1
+		$CrabSprite/Base.position.x = -130
 	
 	is_idle_ani = false
 	if (is_walking_ani == false):

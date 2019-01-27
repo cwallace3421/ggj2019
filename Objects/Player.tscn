@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://CrabSprite.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/Trajectory.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/ShellLauncher.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Trajectory.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/ShellLauncher.tscn" type="PackedScene" id=3]
+[ext_resource path="res://CrabSprite.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
@@ -34,10 +34,7 @@ gravity_scale = 10.0
 continuous_cd = 1
 script = ExtResource( 1 )
 
-[node name="CrabSprite" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, -28.639 )
-
-[node name="Trajectory" parent="." instance=ExtResource( 3 )]
+[node name="Trajectory" parent="." instance=ExtResource( 2 )]
 position = Vector2( -64.266, -132.964 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -48,7 +45,7 @@ shape = SubResource( 2 )
 position = Vector2( -64.266, -135.18 )
 enabled = true
 
-[node name="ShellLauncher" parent="." instance=ExtResource( 4 )]
+[node name="ShellLauncher" parent="." instance=ExtResource( 3 )]
 position = Vector2( -64.266, -132.105 )
 
 [node name="PickupArea" type="Area2D" parent="."]
@@ -90,10 +87,14 @@ enabled = true
 cast_to = Vector2( 0, 200 )
 
 [node name="HitBox" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( -62.3619, -135.339 )
 shape = SubResource( 4 )
+
+[node name="CrabSprite" parent="." instance=ExtResource( 4 )]
+position = Vector2( -130, -28.639 )
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="body_exited" from="PickupArea" to="." method="_on_PickupArea_body_exited"]
