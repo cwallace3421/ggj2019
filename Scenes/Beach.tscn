@@ -303,7 +303,7 @@ position = Vector2( 17514.7, 2641.73 )
 position = Vector2( 17529.9, 3613.19 )
 
 [node name="Player" parent="." instance=ExtResource( 12 )]
-position = Vector2( 15648.7, 1758.4 )
+position = Vector2( -1586.43, -94.9119 )
 mass = 12.0
 
 [node name="Enemy" parent="." instance=ExtResource( 13 )]
