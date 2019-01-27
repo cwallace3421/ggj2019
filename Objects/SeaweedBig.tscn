@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Props/Prop_0008_SeaweedBig.png" type="Texture" id=1]
+
+[node name="SeaweedBig" type="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 155.147, 46.2014, -150.207, 46.2014, -125.061, 19.8571, -92.729, 5.48749, -62.7923, -20.2581, -32.2568, -31.634, 15.0432, -32.2328, 62.942, -23.2518, 90.4838, -3.49353, 117.427, 21.6533, 136.586, 27.0419 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+
