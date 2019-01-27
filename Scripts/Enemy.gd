@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 onready var shell_character : = $EnemyCrabSprite/Base/Hip/Shell1
 
@@ -11,9 +11,16 @@ var direction : int = -1
 
 var velocity : = Vector2.ZERO
 
+var is_dead
+
+var ani_block
+
 func _ready():
+	ani_block = false
+	is_dead = false
 	shell_type = "plain"
 	set_shell(shell_type)
+	$EnemyCrabSprite/AnimationPlayer.connect("animation_finished", self, "_animation_finished")
 
 #
 ### Main Loop
@@ -25,24 +32,17 @@ func _process(delta):
 ### Physics
 #
 func _physics_process(delta:float):
-	velocity.x = 0
+	if (is_dead): return
 	
-	if (is_on_floor()):
-		if (direction < 0):
-			velocity.x -= 450
-		if (direction > 0):
-			velocity.x += 450
+	velocity.x = linear_velocity.x
+	velocity.y = linear_velocity.y
 	
-	if (!is_on_floor()):
-		velocity.y += 1200 * delta
-	else:
-		velocity.y = 0
-
-	move_and_slide(velocity, Vector2.UP)
+	if (direction < 0):
+		velocity.x -= 20
+	if (direction > 0):
+		velocity.x += 20
 	
-	if (is_on_wall()):
-		previously_triggered_by = 0
-		direction *= -1
+	set_linear_velocity(velocity)
 	
 	if (direction < 0):
 		move_animation(true)
@@ -56,7 +56,6 @@ func _physics_process(delta:float):
 #
 var previously_triggered_by = 0
 func trigger(id:int):
-	print(id)
 	if (id != previously_triggered_by):
 		direction *= -1
 		previously_triggered_by = id
@@ -65,10 +64,11 @@ func set_shell(type:String):
 	shell_type = type
 	if (type == "none"):
 		shell_character.frame = 0
-		if (is_idle_ani):
-			$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
-		if (is_walking_ani):
-			$EnemyCrabSprite/AnimationPlayer.play("WalkNoShell")
+		if (!ani_block):
+			if (is_idle_ani):
+				$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
+			if (is_walking_ani):
+				$EnemyCrabSprite/AnimationPlayer.play("WalkNoShell")
 		var new_color = Color("#cd2727")
 		$EnemyCrabSprite/Base/Hip/Shell1.self_modulate.h = new_color.h
 		$EnemyCrabSprite/Base/Hip/Shell1.self_modulate.s = new_color.s
@@ -81,11 +81,12 @@ func set_shell(type:String):
 		shell_character.frame = 1
 	if (type == "fancy"):
 		shell_character.frame = 2
-		
-	if (is_idle_ani):
-		$EnemyCrabSprite/AnimationPlayer.play("Idle")
-	if (is_walking_ani):
-		$EnemyCrabSprite/AnimationPlayer.play("Walk")
+	
+	if (!ani_block):
+		if (is_idle_ani):
+			$EnemyCrabSprite/AnimationPlayer.play("Idle")
+		if (is_walking_ani):
+			$EnemyCrabSprite/AnimationPlayer.play("Walk")
 
 func move_animation(left:bool):
 	if (left):
@@ -98,24 +99,43 @@ func move_animation(left:bool):
 	is_idle_ani = false
 	if (is_walking_ani == false):
 		is_walking_ani = true
-		if (shell_type != "none"):
-			$EnemyCrabSprite/AnimationPlayer.play("Walk")
-		else:
-			$EnemyCrabSprite/AnimationPlayer.play("WalkNoShell")
+		if (!ani_block):
+			if (shell_type != "none"):
+				$EnemyCrabSprite/AnimationPlayer.play("Walk")
+			else:
+				$EnemyCrabSprite/AnimationPlayer.play("WalkNoShell")
 
 func idle_animation():
 	is_walking_ani = false
 	if (is_idle_ani == false):
 		is_idle_ani = true
-		if (shell_type != "none"):
-			$EnemyCrabSprite/AnimationPlayer.play("Idle")
-		else:
-			$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
+		if (!ani_block):
+			if (shell_type != "none"):
+				$EnemyCrabSprite/AnimationPlayer.play("Idle")
+			else:
+				$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
 
 
 func _on_HitBox_body_entered(body):
-	if (shell_type != "none" and body.has_method("get_shell_type")):
-		if (abs(body.linear_velocity.x) > 10 or abs(body.linear_velocity.y) > 10):
-			var degrees = (randi() * 90) - 45
-			$ShellLauncher.throw_shell(shell_type, Vector2.UP.rotated(deg2rad(degrees)), $ShellLauncher.get_global_transform().get_origin())
-			set_shell("none")
+	if (body.has_method("get_shell_type")):
+		if (abs(body.linear_velocity.x) > 50 or abs(body.linear_velocity.y) > 50):
+			if (shell_type != "none" and !is_dead):
+				var degrees = (randi() * 90) - 45
+				$ShellLauncher.throw_shell(shell_type, Vector2.UP.rotated(deg2rad(degrees)), $ShellLauncher.get_global_transform().get_origin())
+				set_shell("none")
+				ani_block = true
+				$EnemyCrabSprite/AnimationPlayer.play("Hit_Ani")
+			else:
+				is_dead = true
+				ani_block = true
+				$EnemyCrabSprite/AnimationPlayer.play("Death_Ani")
+				set_collision_layer_bit(1, false)
+				set_collision_layer_bit(3, true)
+				set_collision_mask_bit(0, false)
+				set_collision_mask_bit(2, false)
+				set_collision_mask_bit(3, true)
+
+func _animation_finished(name:String):
+	if (ani_block and name != "Death_Ani"):
+		ani_block = false
+		set_shell(shell_type)

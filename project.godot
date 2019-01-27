@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ggj2019"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/Beach.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -70,4 +70,5 @@ action={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.580392, 0.807843, 0.835294, 1 )
 environment/default_environment="res://default_env.tres"

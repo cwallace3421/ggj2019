@@ -7,6 +7,8 @@
 extents = Vector2( 499.032, 0.652679 )
 
 [node name="SandGround" type="StaticBody2D"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
