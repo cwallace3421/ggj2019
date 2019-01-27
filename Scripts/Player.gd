@@ -1,11 +1,13 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 onready var Dot = preload("res://Objects/Dot.tscn")
 
 onready var trajectory: = $Trajectory
-onready var camera: = $Camera2D
+onready var camera: = $CameraPoint/Camera2D
 onready var traj_raycast : = $TrajRayCast2D
-onready var floor_raycast : = $FloorRayCast2D
+onready var floor_raycast_1 : = $FloorRayCast2D1
+onready var floor_raycast_2 : = $FloorRayCast2D2
+onready var floor_raycast_3 : = $FloorRayCast2D3
 onready var shell_character : = $CrabSprite/Base/Hip/Shell1
 onready var pickup_area : = $PickupArea
 
@@ -77,7 +79,7 @@ func right_trigger_unpressed(delta:float):
 		if (traj_raycast.is_colliding() and traj_raycast.get_collider() is StaticBody2D):
 			$ShellLauncher.place_shell(shell_type, traj_raycast.get_collision_point())
 			set_shell("none")
-			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 350
+			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 1200
 		else:
 			is_throwing = true
 			$ShellLauncher.throw_shell(shell_type, throw_direction, traj_raycast.get_global_transform().get_origin())
@@ -90,33 +92,25 @@ func right_trigger_unpressed(delta:float):
 ### Physics
 #
 func _physics_process(delta:float):
-	velocity.x = 0
+	velocity.x = linear_velocity.x
+	velocity.y = linear_velocity.y
+	
+	linear_damp = -1
 	
 	var x_axis = Input.get_action_strength("right") - Input.get_action_strength("left")
 	
 	if (jump_velocity != Vector2.ZERO):
-		velocity.y += jump_velocity.y
-		jump_velocity.y += 1200 * delta
-		velocity.x += jump_velocity.x
-	
-	if (is_on_floor()):
-		if (x_axis < 0):
-			velocity.x -= 450
-		if (x_axis > 0):
-			velocity.x += 450
-	
-	if (!is_on_floor() or jump_velocity != Vector2.ZERO):
-		velocity.y += 1200 * delta
-	else:
-		velocity.y = 0
-
-	if ($FloorRayCast2D.is_colliding()):
-		move_and_slide_with_snap(velocity, Vector2(0, 64), $FloorRayCast2D.get_collision_normal())
-	else:
-		move_and_slide_with_snap(velocity, Vector2(0, 64), Vector2.UP)
-	
-	if (is_on_floor()):
+		velocity += jump_velocity
 		jump_velocity = Vector2.ZERO
+	else:
+		if (is_on_floor()):
+			if (x_axis < 0):
+				velocity.x = -450
+			if (x_axis > 0):
+				velocity.x = 450
+			linear_damp = 4
+	
+	set_linear_velocity(velocity)
 	
 	if (x_axis < 0):
 		move_animation(true)
@@ -124,34 +118,13 @@ func _physics_process(delta:float):
 		move_animation(false)
 	else:
 		idle_animation()
-	
-#	if (is_on_floor()):
-#		if (x_axis < 0):
-#			vel.x = -get_speed(delta, x_axis)
-#		if (x_axis > 0):
-#			vel.x = +get_speed(delta, x_axis)
-#
-#	if (jump_velocity != Vector2.ZERO):
-#		vel = jump_velocity * delta
-#		jump_velocity.y = jump_velocity.y + (gravity / 4)
-#		jump_velocity.x = jump_velocity.x + (damping * (sign(jump_velocity.x) * -1))
-#
-#	vel = move_and_slide(vel, Vector2.UP) # can raycast to floor to get normal
-#	move_and_collide(vel)
-#
-#	if (is_on_floor()):
-#		jump_velocity = Vector2.ZERO
-#
-#	if (x_axis < 0):
-#		move_animation(true)
-#	elif (x_axis > 0):
-#		move_animation(false)
-#	else:
-#		idle_animation()
 
 #
 ### Helpers
 #
+func is_on_floor():
+	return floor_raycast_1.is_colliding() or floor_raycast_2.is_colliding() or floor_raycast_3.is_colliding()
+
 func set_shell(type:String):
 	shell_type = type
 	if (type == "none"):

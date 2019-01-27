@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 onready var shell_character : = $EnemyCrabSprite/Base/Hip/Shell1
 
@@ -25,24 +25,15 @@ func _process(delta):
 ### Physics
 #
 func _physics_process(delta:float):
-	velocity.x = 0
+	velocity.x = linear_velocity.x
+	velocity.y = linear_velocity.y
 	
-	if (is_on_floor()):
-		if (direction < 0):
-			velocity.x -= 450
-		if (direction > 0):
-			velocity.x += 450
+	if (direction < 0):
+		velocity.x -= 20
+	if (direction > 0):
+		velocity.x += 20
 	
-	if (!is_on_floor()):
-		velocity.y += 1200 * delta
-	else:
-		velocity.y = 0
-
-	move_and_slide(velocity, Vector2.UP)
-	
-	if (is_on_wall()):
-		previously_triggered_by = 0
-		direction *= -1
+	set_linear_velocity(velocity)
 	
 	if (direction < 0):
 		move_animation(true)
