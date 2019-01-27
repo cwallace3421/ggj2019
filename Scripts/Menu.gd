@@ -1,5 +1,7 @@
 extends Control
 
+var Beach = preload("res://Scenes/Beach.tscn")
+
 var screen_id:int = 0
 
 func _process(delta):

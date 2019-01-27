@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Shell.gd" type="Script" id=1]
-[ext_resource path="res://CrabLayers/CrabShell_0002_Shell2.png" type="Texture" id=2]
+[ext_resource path="res://CrabLayers/Shells.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
@@ -20,8 +20,12 @@ script = ExtResource( 1 )
 shell_type = "fancy"
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 2.94037, 5.88075 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+frame = 2
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.2

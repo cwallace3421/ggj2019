@@ -1,7 +1,4 @@
 extends RigidBody2D
-
-onready var Dot = preload("res://Objects/Dot.tscn")
-
 onready var trajectory: = $Trajectory
 onready var camera: = $CameraPoint/Camera2D
 onready var traj_raycast : = $TrajRayCast2D
@@ -13,10 +10,6 @@ onready var pickup_area : = $PickupArea
 
 var shell_type = "plain"
 
-var starting_pos:Vector2 = Vector2(self.position.x, self.position.y)
-var dead_zone:float = 0.2
-var speed_multipler:float = 4
-
 var throw_direction:Vector2 = Vector2.ZERO
 var is_throwing : = false
 
@@ -24,10 +17,7 @@ var is_walking_ani : = false
 var is_idle_ani : = false
 
 var velocity : = Vector2.ZERO
-var prev_velocity : = Vector2.ZERO
 var jump_velocity : = Vector2.ZERO
-var gravity:float = 600
-var damping:float = 100
 
 var shell_to_pickup
 
@@ -186,12 +176,6 @@ func idle_animation():
 				$CrabSprite/AnimationPlayer.play("Idle")
 			else:
 				$CrabSprite/AnimationPlayer.play("IdleNoShell")
-
-func get_speed(delta:float, axis:float) -> float:
-	return (100 * delta * (speed_multipler * abs(axis)))
-
-func get_gravity(delta:float) -> float:
-	return gravity * delta
 
 func lerp_zoom_to(value:float, pin_bottom:bool):
 	if (camera.zoom.x != value):

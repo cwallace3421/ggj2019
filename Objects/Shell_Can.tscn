@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Shell.gd" type="Script" id=1]
-[ext_resource path="res://CrabLayers/CrabRig_0021_Shell3.png" type="Texture" id=2]
+[ext_resource path="res://CrabLayers/Shells.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
@@ -25,8 +25,12 @@ script = ExtResource( 1 )
 shell_type = "can"
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 17.9621, 23.9495 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 0.628783
