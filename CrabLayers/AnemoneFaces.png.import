@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CrabShell_0000_Tail.png-9045cfdfd0de082b8b531b80601c6563.stex"
+path="res://.import/AnemoneFaces.png-94784f493db9e08fe51b0fcfe6cf845e.stex"
 
 [deps]
 
-source_file="res://CrabLayers/CrabShell_0000_Tail.png"
-dest_files=[ "res://.import/CrabShell_0000_Tail.png-9045cfdfd0de082b8b531b80601c6563.stex" ]
+source_file="res://CrabLayers/AnemoneFaces.png"
+dest_files=[ "res://.import/AnemoneFaces.png-94784f493db9e08fe51b0fcfe6cf845e.stex" ]
 
 [params]
 
