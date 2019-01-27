@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 onready var shell_character : = $EnemyCrabSprite/Base/Hip/Shell1
 
-var shell_type = "plain"
+var shell_type
 
 var is_walking_ani : = false
 var is_idle_ani : = false
@@ -12,6 +12,7 @@ var direction : int = -1
 var velocity : = Vector2.ZERO
 
 func _ready():
+	shell_type = "plain"
 	set_shell(shell_type)
 
 #
@@ -68,6 +69,10 @@ func set_shell(type:String):
 			$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
 		if (is_walking_ani):
 			$EnemyCrabSprite/AnimationPlayer.play("WalkNoShell")
+		var new_color = Color("#cd2727")
+		$EnemyCrabSprite/Base/Hip/Shell1.self_modulate.h = new_color.h
+		$EnemyCrabSprite/Base/Hip/Shell1.self_modulate.s = new_color.s
+		$EnemyCrabSprite/Base/Hip/Shell1.self_modulate.v = new_color.v
 		return
 		
 	if (type == "plain"):
@@ -106,3 +111,11 @@ func idle_animation():
 			$EnemyCrabSprite/AnimationPlayer.play("Idle")
 		else:
 			$EnemyCrabSprite/AnimationPlayer.play("IdleNoShell")
+
+
+func _on_HitBox_body_entered(body):
+	if (shell_type != "none" and body.has_method("get_shell_type")):
+		if (abs(body.linear_velocity.x) > 10 or abs(body.linear_velocity.y) > 10):
+			var degrees = (randi() * 90) - 45
+			$ShellLauncher.throw_shell(shell_type, Vector2.UP.rotated(deg2rad(degrees)), $ShellLauncher.get_global_transform().get_origin())
+			set_shell("none")

@@ -110,7 +110,10 @@ func _physics_process(delta:float):
 	else:
 		velocity.y = 0
 
-	move_and_slide(velocity, Vector2.UP)
+	if ($FloorRayCast2D.is_colliding()):
+		move_and_slide_with_snap(velocity, Vector2(0, 64), $FloorRayCast2D.get_collision_normal())
+	else:
+		move_and_slide_with_snap(velocity, Vector2(0, 64), Vector2.UP)
 	
 	if (is_on_floor()):
 		jump_velocity = Vector2.ZERO
