@@ -31,14 +31,22 @@ var damping:float = 100
 
 var shell_to_pickup
 
+var is_dead
+var ani_block
+
 func _ready():
+	is_dead = false
+	ani_block = false
 	set_shell(shell_type)
 	Input.connect("joy_connection_changed", self, "joy_changed")
+	$CrabSprite/AnimationPlayer.connect("animation_finished", self, "_animation_finished")
 
 #
 ### Main Loop
 #
 func _process(delta):
+	if (is_dead): return
+	
 	if (Input.is_action_just_pressed("action")):
 		a_button_pressed(delta)
 		
@@ -92,6 +100,7 @@ func right_trigger_unpressed(delta:float):
 ### Physics
 #
 func _physics_process(delta:float):
+	if (is_dead): return
 	velocity.x = linear_velocity.x
 	velocity.y = linear_velocity.y
 	
@@ -129,10 +138,11 @@ func set_shell(type:String):
 	shell_type = type
 	if (type == "none"):
 		shell_character.frame = 0
-		if (is_idle_ani):
-			$CrabSprite/AnimationPlayer.play("IdleNoShell")
-		if (is_walking_ani):
-			$CrabSprite/AnimationPlayer.play("WalkNoShell")
+		if (!ani_block):
+			if (is_idle_ani):
+				$CrabSprite/AnimationPlayer.play("IdleNoShell")
+			if (is_walking_ani):
+				$CrabSprite/AnimationPlayer.play("WalkNoShell")
 		return
 		
 	if (type == "plain"):
@@ -141,11 +151,12 @@ func set_shell(type:String):
 		shell_character.frame = 1
 	if (type == "fancy"):
 		shell_character.frame = 2
-		
-	if (is_idle_ani):
-		$CrabSprite/AnimationPlayer.play("Idle")
-	if (is_walking_ani):
-		$CrabSprite/AnimationPlayer.play("Walk")
+	
+	if (!ani_block):
+		if (is_idle_ani):
+			$CrabSprite/AnimationPlayer.play("Idle")
+		if (is_walking_ani):
+			$CrabSprite/AnimationPlayer.play("Walk")
 
 func move_animation(left:bool):
 	if (left):
@@ -158,19 +169,21 @@ func move_animation(left:bool):
 	is_idle_ani = false
 	if (is_walking_ani == false):
 		is_walking_ani = true
-		if (shell_type != "none"):
-			$CrabSprite/AnimationPlayer.play("Walk")
-		else:
-			$CrabSprite/AnimationPlayer.play("WalkNoShell")
+		if (!ani_block):
+			if (shell_type != "none"):
+				$CrabSprite/AnimationPlayer.play("Walk")
+			else:
+				$CrabSprite/AnimationPlayer.play("WalkNoShell")
 
 func idle_animation():
 	is_walking_ani = false
 	if (is_idle_ani == false):
 		is_idle_ani = true
-		if (shell_type != "none"):
-			$CrabSprite/AnimationPlayer.play("Idle")
-		else:
-			$CrabSprite/AnimationPlayer.play("IdleNoShell")
+		if (!ani_block):
+			if (shell_type != "none"):
+				$CrabSprite/AnimationPlayer.play("Idle")
+			else:
+				$CrabSprite/AnimationPlayer.play("IdleNoShell")
 
 func get_speed(delta:float, axis:float) -> float:
 	return (100 * delta * (speed_multipler * abs(axis)))
@@ -206,3 +219,21 @@ func _on_PickupArea_body_exited(body):
 	if (body.is_in_group("shells")):
 		if (shell_to_pickup != null):
 			shell_to_pickup = null
+
+func _on_HitBox_body_entered(body):
+	if (body.has_method("is_enemy")):
+		body.trigger(randi() * 10000)
+		if (shell_type != "none" and !is_dead):
+			$ShellLauncher.throw_shell(shell_type, Vector2.UP, $ShellLauncher.get_global_transform().get_origin(), 600)
+			set_shell("none")
+			ani_block = true
+			$CrabSprite/AnimationPlayer.play("Hit")
+		else:
+			is_dead = true
+			ani_block = true
+			$CrabSprite/AnimationPlayer.play("Death")
+
+func _animation_finished(name:String):
+	if (ani_block and name != "Death"):
+		ani_block = false
+		set_shell(shell_type)

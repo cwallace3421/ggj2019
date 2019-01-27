@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://CrabSprite.tscn" type="PackedScene" id=2]
@@ -18,6 +18,11 @@ height = 53.9937
 
 radius = 48.6144
 height = 319.793
+
+[sub_resource type="CapsuleShape2D" id=4]
+
+radius = 136.975
+height = 49.45
 
 [node name="Player" type="RigidBody2D"]
 collision_layer = 4
@@ -84,5 +89,12 @@ position = Vector2( -119.082, -135.974 )
 enabled = true
 cast_to = Vector2( 0, 200 )
 
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( -62.3619, -135.339 )
+shape = SubResource( 4 )
+
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="body_exited" from="PickupArea" to="." method="_on_PickupArea_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

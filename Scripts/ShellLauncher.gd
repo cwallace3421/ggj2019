@@ -7,11 +7,14 @@ onready var Shell_Fancy = preload("res://Objects/Shell_Fancy.tscn")
 
 export var force = 1200
 
-func throw_shell(type:String, direction:Vector2, position:Vector2):
+func throw_shell(type:String, direction:Vector2, position:Vector2, override_force:int = 0):
 	var o = get_shell(type)
 	o.position = position + (direction * 200)
 	get_tree().get_nodes_in_group("level_root")[0].add_child(o)
-	o.apply_impulse(Vector2.ZERO, direction * force)
+	if (override_force > 0):
+		o.apply_impulse(Vector2.ZERO, direction * override_force)
+	else:
+		o.apply_impulse(Vector2.ZERO, direction * force)
 #	var d = Dot.instance()
 #	d.position = o.position
 #	get_tree().get_nodes_in_group("level_root")[0].add_child(d)

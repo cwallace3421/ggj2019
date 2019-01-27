@@ -139,3 +139,6 @@ func _animation_finished(name:String):
 	if (ani_block and name != "Death_Ani"):
 		ani_block = false
 		set_shell(shell_type)
+		
+func is_enemy() -> bool:
+	return true
