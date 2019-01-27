@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CrabShell_0001_Shell3.png-ca691daf94d2c02539c64e5a2548df6a.stex"
+path="res://.import/CrabRig_0009_Claw1.png-8ba59ac075cedf951674f266bfd40004.stex"
 
 [deps]
 
-source_file="res://CrabLayers/CrabShell_0001_Shell3.png"
-dest_files=[ "res://.import/CrabShell_0001_Shell3.png-ca691daf94d2c02539c64e5a2548df6a.stex" ]
+source_file="res://CrabLayers/CrabRig_0009_Claw1.png"
+dest_files=[ "res://.import/CrabRig_0009_Claw1.png-8ba59ac075cedf951674f266bfd40004.stex" ]
 
 [params]
 
