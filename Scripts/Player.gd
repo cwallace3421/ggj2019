@@ -79,7 +79,7 @@ func right_trigger_unpressed(delta:float):
 		if (traj_raycast.is_colliding() and traj_raycast.get_collider() is StaticBody2D):
 			$ShellLauncher.place_shell(shell_type, traj_raycast.get_collision_point())
 			set_shell("none")
-			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 1200
+			jump_velocity = throw_direction.reflect(throw_direction.tangent()) * 1300
 		else:
 			is_throwing = true
 			$ShellLauncher.throw_shell(shell_type, throw_direction, traj_raycast.get_global_transform().get_origin())

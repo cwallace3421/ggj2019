@@ -118,7 +118,7 @@ func idle_animation():
 
 func _on_HitBox_body_entered(body):
 	if (body.has_method("get_shell_type")):
-		if (abs(body.linear_velocity.x) > 50 or abs(body.linear_velocity.y) > 50):
+		if (abs(body.linear_velocity.x) > 500 or abs(body.linear_velocity.y) > 500):
 			if (shell_type != "none" and !is_dead):
 				var degrees = (randi() * 90) - 45
 				$ShellLauncher.throw_shell(shell_type, Vector2.UP.rotated(deg2rad(degrees)), $ShellLauncher.get_global_transform().get_origin())
