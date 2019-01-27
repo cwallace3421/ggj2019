@@ -10,7 +10,9 @@
 [ext_resource path="res://Objects/Star.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/PlankLeft.tscn" type="PackedScene" id=9]
 
-[node name="Beach" type="Node2D"]
+[node name="Beach" type="Node2D" groups=[
+"level_root",
+]]
 
 [node name="SandTop" parent="." instance=ExtResource( 1 )]
 position = Vector2( -1.04956, -8.7348 )
@@ -18,11 +20,19 @@ position = Vector2( -1.04956, -8.7348 )
 [node name="SandTop2" parent="." instance=ExtResource( 1 )]
 position = Vector2( -998.546, -8.7348 )
 
+[node name="SandTop4" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1953.89, -32.1173 )
+rotation = 0.0669325
+
 [node name="SandTop3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 997.85, -8.7348 )
 
 [node name="SandGround" parent="." instance=ExtResource( 2 )]
 position = Vector2( -999.722, 187.194 )
+
+[node name="SandGround3" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1971.77, 163.811 )
+rotation = 0.0623573
 
 [node name="SandGround2" parent="." instance=ExtResource( 2 )]
 position = Vector2( -2.63049, 188.864 )

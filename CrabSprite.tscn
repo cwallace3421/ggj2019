@@ -829,7 +829,7 @@ tracks/34/keys = {
 "values": [ Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource_name = "IdleNoShell"
 loop = true
@@ -1254,9 +1254,8 @@ tracks/34/keys = {
 "values": [ Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ), Vector2( 162.629, -479.964 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource_name = "Walk"
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -2110,7 +2109,7 @@ tracks/34/keys = {
 position = Vector2( 1.08072, -28.6391 )
 
 [node name="Base" type="Node2D" parent="."]
-scale = Vector2( 0.1, 0.1 )
+scale = Vector2( 0.2, 0.2 )
 
 [node name="Hip" type="Sprite" parent="Base"]
 position = Vector2( -14.7043, -124.915 )
@@ -2205,7 +2204,7 @@ offset = Vector2( -143.973, 434.012 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BasePosw = SubResource( 1 )
 anims/Idle = SubResource( 2 )
-anims/IdleNoShell = SubResource( 4 )
-anims/Walk = SubResource( 3 )
+anims/IdleNoShell = SubResource( 3 )
+anims/Walk = SubResource( 4 )
 anims/WalkNoShell = SubResource( 5 )
 
