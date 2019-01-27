@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Objects/SandGroundLarge.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/SandTop.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Objects/EnemyBarrier.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Objects/Shell.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Objects/Shell_Fancy.tscn" type="PackedScene" id=20]
 
 [node name="Beach" type="Node2D" groups=[
 "level_root",
@@ -41,6 +42,9 @@ rotation = 1.44771
 position = Vector2( 2784.68, 1007.88 )
 rotation = -0.101814
 
+[node name="SandGroundLarge5" parent="Background" instance=ExtResource( 1 )]
+position = Vector2( 5701.2, 1007.88 )
+
 [node name="SandTop" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( -1.04956, -8.7348 )
 
@@ -52,6 +56,13 @@ position = Vector2( 1997.62, -8.7348 )
 
 [node name="SandTop7" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( 3805.9, -193.673 )
+
+[node name="SandTop10" parent="Background" instance=ExtResource( 2 )]
+position = Vector2( 4720.48, -33.2603 )
+rotation = 0.346552
+
+[node name="SandTop11" parent="Background" instance=ExtResource( 2 )]
+position = Vector2( 5655.53, 155.39 )
 
 [node name="SandTop6" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( 2876.52, -88.9035 )
@@ -94,6 +105,13 @@ position = Vector2( 1996.03, 188.864 )
 
 [node name="SandGround7" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( 3804.32, 3.92576 )
+
+[node name="SandGround9" parent="Background" instance=ExtResource( 3 )]
+position = Vector2( 4706.3, 161.771 )
+rotation = 0.346552
+
+[node name="SandGround10" parent="Background" instance=ExtResource( 3 )]
+position = Vector2( 5653.65, 346.319 )
 
 [node name="SandGround6" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( 2918.36, 102.015 )
@@ -174,4 +192,7 @@ position = Vector2( -1647.56, -42.882 )
 
 [node name="Shell2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 252.258, -217.22 )
+
+[node name="Shell3" parent="." instance=ExtResource( 20 )]
+position = Vector2( 5424.93, -211.936 )
 
