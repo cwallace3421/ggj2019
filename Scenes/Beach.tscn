@@ -414,22 +414,22 @@ position = Vector2( 8806.48, -623.481 )
 position = Vector2( 9539.52, 305.734 )
 
 [node name="Cloud2" parent="." instance=ExtResource( 24 )]
-position = Vector2( 6689.93, -1439.12 )
+position = Vector2( 6838.24, -961.452 )
 
 [node name="Cloud3" parent="." instance=ExtResource( 25 )]
-position = Vector2( 3747.42, -1583.67 )
+position = Vector2( 3929.32, -1341.14 )
 
 [node name="Cloud4" parent="." instance=ExtResource( 23 )]
-position = Vector2( -661.192, -1924.38 )
+position = Vector2( -479.293, -1712.17 )
 
 [node name="Cloud1" parent="." instance=ExtResource( 24 )]
-position = Vector2( -2247.18, -1461.12 )
+position = Vector2( -2065.28, -1248.9 )
 
 [node name="Cloud5" parent="." instance=ExtResource( 26 )]
-position = Vector2( 12048.4, 543.2 )
+position = Vector2( 12250, 879.116 )
 
 [node name="Cloud6" parent="." instance=ExtResource( 26 )]
-position = Vector2( 487.646, -1204.26 )
+position = Vector2( 669.544, -961.727 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
