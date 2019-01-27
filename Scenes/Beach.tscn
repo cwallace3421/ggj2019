@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Objects/SandGroundLarge.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/SandTop.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Objects/SeaweedBig.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/EnemyBarrier.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Enemy.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Objects/Shell.tscn" type="PackedScene" id=19]
 
 [node name="Beach" type="Node2D" groups=[
 "level_root",
@@ -55,7 +56,6 @@ position = Vector2( 3805.9, -193.673 )
 [node name="SandTop6" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( 2876.52, -88.9035 )
 rotation = -0.226152
-scale = Vector2( 1, 1 )
 
 [node name="SandTop2" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( -998.546, -8.7348 )
@@ -63,17 +63,14 @@ position = Vector2( -998.546, -8.7348 )
 [node name="SandTop4" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( -1953.89, -32.1173 )
 rotation = 0.0669325
-scale = Vector2( 1, 1 )
 
 [node name="SandTop8" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( -2494.5, -604.524 )
 rotation = 1.6708
-scale = Vector2( 1, 1 )
 
 [node name="SandTop9" parent="Background" instance=ExtResource( 2 )]
 position = Vector2( -2807.2, -1055.03 )
 rotation = 0.265345
-scale = Vector2( 1, 1 )
 
 [node name="SandGround" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( -999.722, 187.194 )
@@ -81,12 +78,10 @@ position = Vector2( -999.722, 187.194 )
 [node name="SandGround3" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( -1971.77, 163.811 )
 rotation = 0.0623573
-scale = Vector2( 1, 1 )
 
 [node name="SandGround8" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( -2650.18, -604.698 )
 rotation = -1.47954
-scale = Vector2( 1, 1 )
 
 [node name="SandGround2" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( -2.63049, 188.864 )
@@ -103,7 +98,6 @@ position = Vector2( 3804.32, 3.92576 )
 [node name="SandGround6" parent="Background" instance=ExtResource( 3 )]
 position = Vector2( 2918.36, 102.015 )
 rotation = -0.226152
-scale = Vector2( 1, 1 )
 
 [node name="Bucket" parent="Background" instance=ExtResource( 4 )]
 position = Vector2( 609.096, 2.50854 )
@@ -177,4 +171,7 @@ position = Vector2( -1330.35, 22.5737 )
 
 [node name="Enemy" parent="." instance=ExtResource( 18 )]
 position = Vector2( -1647.56, -42.882 )
+
+[node name="Shell2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 252.258, -217.22 )
 

@@ -1,31 +1,30 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://CrabSprite.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Trajectory.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/ShellLauncher.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Dot.tscn" type="PackedScene" id=5]
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=1]
 
 friction = 0.5
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 
 radius = 119.458
 height = 53.9937
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 
 radius = 48.6144
 height = 319.793
 
 [node name="Player" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 mode = 2
 mass = 10.0
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 10.0
 continuous_cd = 1
 script = ExtResource( 1 )
@@ -38,7 +37,7 @@ position = Vector2( -64.266, -132.964 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -64.9801, -133.57 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="TrajRayCast2D" type="RayCast2D" parent="."]
 position = Vector2( -64.266, -135.18 )
@@ -55,7 +54,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -69,9 +68,6 @@ position = Vector2( -4.73771, 274.82 )
 current = true
 zoom = Vector2( 1.2, 1.2 )
 smoothing_enabled = true
-
-[node name="Dot" parent="." instance=ExtResource( 5 )]
-position = Vector2( -64.6001, -131.1 )
 
 [node name="FloorRayCast2D1" type="RayCast2D" parent="."]
 position = Vector2( -64.266, -135.18 )

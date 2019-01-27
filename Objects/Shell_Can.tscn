@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Shell.gd" type="Script" id=1]
-[ext_resource path="res://CrabLayers/CrabShell_0001_Shell3.png" type="Texture" id=2]
+[ext_resource path="res://CrabLayers/CrabRig_0021_Shell3.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
@@ -16,7 +16,7 @@ height = 83.8409
 "shells",
 ]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2
 mass = 2.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 10.0

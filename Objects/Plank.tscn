@@ -3,6 +3,7 @@
 [ext_resource path="res://Props/Prop_0006_Plank.png" type="Texture" id=1]
 
 [node name="Plank" type="StaticBody2D"]
+collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -464.105, -75.1583, -502, -5.68469, -502, 49.0521, 487.472, 49.0521, 489.578, 11.1574, 432.736, -79.3688 )

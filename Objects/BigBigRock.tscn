@@ -3,6 +3,7 @@
 [ext_resource path="res://Props/Prop_0015_Rocks.png" type="Texture" id=1]
 
 [node name="BigRock" type="StaticBody2D"]
+collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -232.527, 61.6837, -190.242, 98.6304, -34.403, 101.571, 25.8745, 48.6442, 128.787, 64.8162, 272.865, 38.3529, 250.812, -54.2686, 163.386, -177.908, 102.315, -254.547, 18.4915, -279.694, -41.3822, -274.904, -112.527, -237.263, -152.527, -155.158, -224.106, -140.421, -266.211, -100.421, -276.737, -14.1057 )
